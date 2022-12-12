@@ -15,11 +15,11 @@
 
 using Clock = std::chrono::high_resolution_clock;
 
-const unsigned int N = 2+std::thread::hardware_concurrency(); //number of threads on device
+const unsigned int N = std::thread::hardware_concurrency(); //number of threads on device
 
 std::vector<std::string> permutations;
 
-int fact(int N)
+long long int fact(int N)
 {
     if (N==0 || N==1)
     {
@@ -37,7 +37,7 @@ int fact(int N)
 int main()
 {
     srand(time(0));
-    const int factor = 1*N;
+    const int factor = 11;
     std::string str;
 
     str.reserve(factor);
@@ -63,6 +63,6 @@ int main()
     std::cout << "Time difference = "
     << std::chrono::duration<double, std::nano>(end_time - start_time).count() << " nanoseconds\n";
     
-    std::unordered_set test(permutations.begin(),permutations.end());
-    std::cout << test.size() << '\n';
+//    std::unordered_set test(permutations.begin(),permutations.end());
+//    std::cout << test.size() << '\n';
 }

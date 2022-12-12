@@ -1,7 +1,4 @@
-// C++ program to print all
-// permutations with duplicates allowed
-//https://www.geeksforgeeks.org/write-a-c-program-to-print-all-permutations-of-a-given-string/
-//https://www.geeksforgeeks.org/find-the-n-th-lexicographic-permutation-of-string-using-factoradic-method/
+//https://stackoverflow.com/questions/30865231/parallel-code-for-next-permutation?noredirect=1&lq=1
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
@@ -10,61 +7,27 @@
 #include <thread>
 #include <mutex>
 #include <chrono>
+#include <unordered_map>
 #include <unordered_set>
+#include <algorithm>
 #include <fstream>
-#include <stack>
 
 using Clock = std::chrono::high_resolution_clock;
 
 const unsigned int N = std::thread::hardware_concurrency(); //number of threads on device
+std::unordered_map<int,double> ThreadTimes; //run-times of each individual thread, though
 
 std::vector<std::string> permutations;
 std::mutex mtx;
 std::vector<std::thread> threads;
-int number;
 
-std::string string_permutation(long long int n, std::string str)
-{
-    // Creating an empty stack
-    std::stack<int> s;
-    std::string result;
-
-    // Subtracting 1 from N because the
-    // permutations start from 0 in
-    // Factoradic method
-    n = n - 1;
-
-    // Loop to generate the factroid
-    // of the sequence
-    for (int i = 1; i < str.size() + 1; i++) {
-        s.push(n % i);
-        n = n / i;
-    }
-
-    // Loop to generate nth permutation
-    for (int i = 0; i < str.size(); i++) {
-        int a = s.top();
-        result += str[a];
-        int j;
-
-        // Remove 1-element in each cycle
-        for (j = a; j < str.length(); j++)
-            str[j] = str[j + 1];
-        str[j + 1] = '\0';
-        s.pop();
-    }
-
-    // Final answer
-    return result;
-}
-
-int fact(int N)
+unsigned long long fact(int N)
 {
     if (N==0 || N==1)
     {
         return 1;
     }
-    int total = 1;
+    unsigned long long total = 1;
     for (int i=1; i<=N; i++)
     {
         total *= i;
@@ -72,12 +35,10 @@ int fact(int N)
     return total;
 }
 
-void permute(int partition, std::string &s, int index)
+void permute(int ThreadNumber, unsigned long long partition, std::string vprime, int index)
 {
-//    for (int j = (i*partition)+1; j < ((i+1)*partition)+1; ++j)
-//    {
-//        permutations.push_back(string_permutation(j,s));
-//    }
+    auto TimeNow = Clock::now();
+    std::rotate(vprime.begin(), vprime.begin() + index, vprime.begin() + index + 1);
     std::vector<std::string>::iterator from;
     std::vector<std::string>::iterator to;
     {
@@ -86,43 +47,42 @@ void permute(int partition, std::string &s, int index)
         to = from + partition;
     }
     
-    int j = (index*partition)+1;
-    for (auto i = from; i < to; ++i)
+    for (auto i = from; i < to; ++i, std::next_permutation(vprime.begin() + 1, vprime.end()))
     {
-        *i = string_permutation(j++,s);
+        *i = vprime;
     }
+    ThreadTimes[ThreadNumber+1] += std::chrono::duration<double, std::nano>(Clock::now() - TimeNow).count();
 }
 
 // Driver Code
 int main()
 {
-    const int factor = 1*N;
+    const int factor = 11; //Don't really have this many threads though, jtlyk
     std::string str;
-    number = fact(factor);
+    unsigned long long int number = fact(factor);
+    
     str.reserve(factor);
     
     permutations.resize(number);
-    threads.reserve(N);
+    
+    threads.reserve(factor);
     
     for (int i=65; i<65+factor; i++)
     {
         str.push_back(static_cast<char>(i));
     }
-    std::cout << str << '\n';
+//    std::cout << str << '\n';
     // Function call
     auto start_time = Clock::now();
 
     std::random_device rd;
     std::mt19937 gen(rd());
-    int partition = number/N;
-    
-    for (unsigned int i=0; i<N; i++)
+    unsigned long long partition = (number/factor);
+    for (unsigned int i=0; i<factor; i++)
     {
-        threads.emplace_back(std::move(std::thread(permute, partition, std::ref(str), i)));
+        threads.emplace_back(std::move(std::thread(permute, i, partition, str, i)));
     }
-//    std::shuffle(str.begin(),str.end(), gen);
-//    permute(str);
-    
+
     for (auto &i: threads)
     {
         i.join();
@@ -130,12 +90,26 @@ int main()
     
     auto end_time = Clock::now();
 
-    std::cout << permutations.size() << '\n';
-    std::cout << "Time difference = "
-    << std::chrono::duration<double, std::nano>(end_time - start_time).count() << " nanoseconds\n";
+//    std::cout << permutations.size() << '\n';
+//    std::cout << "Time difference = "
+//    << std::chrono::duration<double, std::nano>(end_time - start_time).count() << " nanoseconds\n";
     
-    std::unordered_set test(permutations.begin(),permutations.end());
-    std::cout << test.size() << '\n';
+    double TotalTime = std::chrono::duration<double, std::nano>(end_time - start_time).count();
+    
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    
+    std::ofstream out("ThreadTimes.txt", std::ios::trunc);
+    
+    out << "total," << TotalTime << '\n';
+    for (auto& i: ThreadTimes)
+    {
+        out << i.first << ',' << i.second << '\n';
+    }
+    
+    out.close();
+    
+//    std::unordered_set test(permutations.begin(),permutations.end());
+//    std::cout << test.size() << '\n';
     
 //    for (auto& i: permutations)
 //    {
