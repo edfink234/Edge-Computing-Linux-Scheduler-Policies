@@ -67,6 +67,6 @@ for i in hists:
         plt.title("Total Program Run Times Random Number Stats")
         plt.savefig(f"RunTimesRunDescribeTotal.png",dpi=5*96)
     else:
-        plt.title(f"Thread {i} Run Times Random Token Shuffle")
+        plt.title(f"Thread {i} Run Times Random Number Stats")
         plt.savefig(f"RunTimesRunDescribeThread{i}.png",dpi=5*96)
     plt.close()

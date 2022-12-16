@@ -15,7 +15,7 @@ using Clock = std::chrono::high_resolution_clock;
 const unsigned int N = std::thread::hardware_concurrency(); //number of threads on device
 
 std::vector<std::string> tokens;
-const int token_count = 5e7;
+const int token_count = 5e6;
 const int token_length = 8;
 
 int main()

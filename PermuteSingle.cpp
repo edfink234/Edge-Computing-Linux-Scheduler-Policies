@@ -51,7 +51,7 @@ int main()
     std::cout << str << '\n';
     // Function call
     auto start_time = Clock::now();
-    do{permutations.push_back(str);}while(std::next_permutation(str.begin(),str.end()));
+    do {permutations.push_back(str);} while(std::next_permutation(str.begin(),str.end()));
     auto end_time = Clock::now();
 
 //    std::cout << permutations.size() << '\n';

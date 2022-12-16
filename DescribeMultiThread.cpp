@@ -31,7 +31,7 @@ namespace Stats
 namespace Vars
 {
     const unsigned int N = std::thread::hardware_concurrency(); //number of threads on device
-    const unsigned int NumPerThread = 2e7; //number of random numbers to generate per thread
+    const unsigned int NumPerThread = 5e6; //number of random numbers to generate per thread
     std::vector<int> RandNums(NumPerThread*N);
     std::vector<int> mins;
     std::vector<int> maxs;
