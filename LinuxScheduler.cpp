@@ -23,7 +23,7 @@ std::unordered_map<int,double> ThreadTimes; //run-times of each individual threa
 namespace SharedVars
 {
     const unsigned int N = std::thread::hardware_concurrency(); //number of threads on device
-    const unsigned int NumPerThread = 5e5; //number of random numbers to generate per thread
+    const unsigned int NumPerThread = 5e6; //number of random numbers to generate per thread
     std::vector<int> RandNums(NumPerThread*N);
     std::mutex mtx;
 }

@@ -23,7 +23,7 @@ std::unordered_map<int,double> ThreadTimes; //run-times of each individual threa
 
 std::vector<std::string> tokens;
 std::vector<std::thread> threads;
-const int token_count = 2e7;
+const int token_count = 5e6;
 const int token_length = 8;
 std::mutex mtx;
 
