@@ -1,6 +1,12 @@
-#Policy options:
+'''
+Driver Program to run the ShuffleMultiThread executable 10 times per
+scheduling policy, and to store the results in a csv file:
+RunShuffleAllTimes.txt
+'''
+
+
+#Policies:
 # -b, --batch          set policy to SCHED_BATCH
-# -d, --deadline       set policy to SCHED_DEADLINE
 # -f, --fifo           set policy to SCHED_FIFO
 # -i, --idle           set policy to SCHED_IDLE
 # -o, --other          set policy to SCHED_OTHER

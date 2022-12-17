@@ -1,3 +1,10 @@
+/*
+ Single Threaded Implementation
+ ------------------------------
+ Calculates the mean, variance, standard deviation, minimum, and maximum
+ of uniformly distributed random integers
+ */
+
 // https://stats.stackexchange.com/questions/25848/how-to-sum-a-standard-deviation
 // https://stackoverflow.com/questions/7616511/calculate-mean-and-standard-deviation-from-a-vector-of-samples-in-c-using-boos
 

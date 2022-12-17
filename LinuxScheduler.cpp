@@ -1,3 +1,10 @@
+/*
+ Multi Threaded Implementation
+ ------------------------------
+ Generates uniformly distributed random integers in the range
+ 1-1000, inclusive.
+ */
+
 //https://linuxhint.com/use-linux-chrt-command/
 //https://stackoverflow.com/questions/41150975/how-to-display-list-of-running-processes-python
 //https://stackoverflow.com/questions/3503879/assign-output-of-os-system-to-a-variable-and-prevent-it-from-being-displayed-on
@@ -28,6 +35,10 @@ namespace SharedVars
     std::mutex mtx;
 }
 
+/*
+ Function to add uniformly distributed random integers to a partition of the
+ vector accessed via vector iterators. 
+ */
 void PerThread_AddN(int threadNumber)
 {
     auto TimeNow = Clock::now();
