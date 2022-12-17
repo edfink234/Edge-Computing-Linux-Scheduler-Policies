@@ -1,3 +1,9 @@
+'''
+Generate Plots for RunDescribeAllTimes.txt obtained by running
+RunDescribeMultiThread.py
+'''
+
+
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np

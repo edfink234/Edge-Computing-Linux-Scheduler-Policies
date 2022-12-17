@@ -1,3 +1,8 @@
+'''
+Generate Plots for RunShuffleAllTimes.txt obtained by running
+RunShuffleMultiThread.py
+'''
+
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np

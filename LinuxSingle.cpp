@@ -1,3 +1,10 @@
+/*
+ Single Threaded Implementation
+ ------------------------------
+ Generates uniformly distributed random integers in the range
+ 1-1000, inclusive.
+ */
+
 //https://linuxhint.com/use-linux-chrt-command/
 //https://stackoverflow.com/questions/41150975/how-to-display-list-of-running-processes-python
 

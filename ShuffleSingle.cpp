@@ -1,3 +1,10 @@
+/*
+ Single Threaded Implementation
+ ------------------------------
+ Shuffles random string tokens, each consisting of 8 capital letters 
+ */
+
+
 #include <cstdlib>
 #include <ctime>
 #include <iostream>

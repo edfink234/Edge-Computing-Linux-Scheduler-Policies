@@ -1,7 +1,10 @@
-// C++ program to print all
-// permutations with duplicates allowed
-//https://www.geeksforgeeks.org/write-a-c-program-to-print-all-permutations-of-a-given-string/
-//https://www.geeksforgeeks.org/find-the-n-th-lexicographic-permutation-of-string-using-factoradic-method/
+/*
+ Multi Threaded Implementation
+ ------------------------------
+ Shuffles random string tokens, each consisting of 8 capital letters 
+ */
+
+
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
@@ -52,7 +55,11 @@ int main()
     
     std::vector<std::string>::iterator from;
     std::vector<std::string>::iterator to;
-    
+
+    /*
+     lambda function to shuffle the i'th partition of the
+     vector of tokens, accessed via the iterators 'from' and 'to'
+     */
     auto thread_shuffle = [&](int start, int stop, int threadNumber) mutable
     {
         auto TimeNow = Clock::now();

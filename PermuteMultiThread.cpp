@@ -1,3 +1,7 @@
+/*
+ Program to calculate all of the possible permutations of a heterogram, single-thread
+ */
+
 //https://stackoverflow.com/questions/30865231/parallel-code-for-next-permutation?noredirect=1&lq=1
 #include <cstdlib>
 #include <ctime>
@@ -15,12 +19,13 @@
 using Clock = std::chrono::high_resolution_clock;
 
 const unsigned int N = std::thread::hardware_concurrency(); //number of threads on device
-std::unordered_map<int,double> ThreadTimes; //run-times of each individual thread, though
+std::unordered_map<int,double> ThreadTimes; //run-times of each individual std::thread
 
 std::vector<std::string> permutations;
 std::mutex mtx;
 std::vector<std::thread> threads;
 
+//calculate factorial
 unsigned long long fact(int N)
 {
     if (N==0 || N==1)
@@ -35,6 +40,10 @@ unsigned long long fact(int N)
     return total;
 }
 
+/*
+ calculate permutations for i'th partition by rotating the first
+ character and then permuting the second to last ones
+ */
 void permute(int ThreadNumber, unsigned long long partition, std::string vprime, int index)
 {
     auto TimeNow = Clock::now();

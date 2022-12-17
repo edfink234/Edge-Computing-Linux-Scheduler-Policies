@@ -1,3 +1,10 @@
+/*
+ Multi Threaded Implementation
+ ------------------------------
+ Calculates the mean, variance, standard deviation, minimum, and maximum
+ of uniformly distributed random integers
+ */
+
 // https://stats.stackexchange.com/questions/25848/how-to-sum-a-standard-deviation
 // https://stackoverflow.com/questions/7616511/calculate-mean-and-standard-deviation-from-a-vector-of-samples-in-c-using-boos
 
@@ -54,17 +61,10 @@ void AddN()
     }
 }
 
-//Count = 40000000
-//Mean = 500.596
-//Variance = 83355.7
-//Standard Deviation = 288.714
-//Min = 1
-//Max = 1000
-//
-//
-//Time difference = 1.39862e+09 nanoseconds
-//size = 40000000
-
+/*
+ Function to calculate the mean, min, and max on the first pass,
+ and the variance on the second pass, for the i'th partition of the data.
+ */
 void Describe(int threadNumber, char option)
 {
     auto TimeNow = Clock::now();
