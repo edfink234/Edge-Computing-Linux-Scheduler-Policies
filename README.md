@@ -1,5 +1,5 @@
 # Edge-Computing-Linux-Scheduler-Policies
-Task 4 for Part 2 of the Interview Process for the Edge Computing Position at Chalmers University of Technology
+Benchmarking performance of multi-threaded algorithm implementations with different Linux scheduling policies
 
 The C++ files are the single-threaded and multi-threaded implementations of the following four algorithms:
 
